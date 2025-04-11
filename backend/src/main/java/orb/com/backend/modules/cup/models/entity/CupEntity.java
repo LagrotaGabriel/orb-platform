@@ -43,7 +43,7 @@ public class CupEntity {
 
     @Comment("Indicates if the cup is activated")
     @Column(name = "bln_activated_cup", nullable = false)
-    private boolean isActivated;
+    private Boolean isActivated;
 
     @Comment("Cup model")
     @Enumerated(EnumType.STRING)
@@ -64,11 +64,11 @@ public class CupEntity {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CupMetricsEntity> metrics = new ArrayList<>();
 
-    public CupEntity(CupColorEnum color) {
+    public CupEntity(CupModelEnum model, CupColorEnum color) {
         this.creationLocalDateTime = LocalDateTime.now();
         this.lastSyncDateTime = LocalDateTime.now();
         this.isActivated = false;
-        this.model = CupModelEnum.ONE;
+        this.model = model;
         this.color = color;
     }
 }

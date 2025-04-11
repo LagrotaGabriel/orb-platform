@@ -1,11 +1,11 @@
-package orb.com.backend.modules.cup.actions.create.service.business.impl;
+package orb.com.backend.modules.cup.actions.create.service.impl;
 
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import orb.com.backend.modules.cup.actions.create.dto.request.CreateCupRequest;
-import orb.com.backend.modules.cup.actions.create.dto.response.CreateCupResponse;
-import orb.com.backend.modules.cup.actions.create.service.business.CreateCupService;
+import orb.com.backend.modules.cup.actions.create.dto.CreateCupRequest;
+import orb.com.backend.modules.cup.models.dto.CupResponse;
+import orb.com.backend.modules.cup.actions.create.service.CreateCupService;
 import orb.com.backend.modules.cup.models.entity.CupEntity;
 import orb.com.backend.modules.cup.repository.CupRepository;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -21,7 +21,7 @@ public class CreateCupServiceImpl implements CreateCupService {
 
     @Override
     @Transactional
-    public CreateCupResponse create(CreateCupRequest request) {
+    public CupResponse create(CreateCupRequest request) {
 
         CupEntity cupEntity = new CupEntity(request.model(), request.color());
 
@@ -29,7 +29,7 @@ public class CreateCupServiceImpl implements CreateCupService {
             CupEntity savedCup = cupRepository.save(cupEntity);
             log.info("Cup created successfully. Id: {}", savedCup.getId());
 
-            return CreateCupResponse.createFromEntity(savedCup);
+            return CupResponse.createFromEntity(savedCup);
 
         } catch (DataIntegrityViolationException dataIntegrityViolationException) {
             log.error("Data integrity violation occurred while creating a new cup: {}", dataIntegrityViolationException.getMessage());

@@ -1,4 +1,4 @@
-package orb.com.backend.modules.cup.actions.create.dto.response;
+package orb.com.backend.modules.cup.models.dto;
 
 import orb.com.backend.modules.cup.models.entity.CupEntity;
 import orb.com.backend.modules.cup.models.enums.CupColorEnum;
@@ -7,7 +7,7 @@ import orb.com.backend.modules.cup.models.enums.CupModelEnum;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record CreateCupResponse(
+public record CupResponse(
         UUID id,
         LocalDateTime creationLocalDateTime,
         LocalDateTime lastSyncDateTime,
@@ -15,8 +15,8 @@ public record CreateCupResponse(
         CupModelEnum model,
         CupColorEnum color
 ) {
-    public static CreateCupResponse createFromEntity(CupEntity cupEntity) {
-        return new CreateCupResponse(
+    public static CupResponse createFromEntity(CupEntity cupEntity) {
+        return new CupResponse(
                 cupEntity.getId(),
                 cupEntity.getCreationLocalDateTime(),
                 cupEntity.getLastSyncDateTime(),

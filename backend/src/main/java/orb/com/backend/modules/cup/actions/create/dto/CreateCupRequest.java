@@ -1,4 +1,4 @@
-package orb.com.backend.modules.cup.actions.create.dto.request;
+package orb.com.backend.modules.cup.actions.create.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.Parameter;

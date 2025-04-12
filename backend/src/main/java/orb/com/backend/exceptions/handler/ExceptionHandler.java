@@ -4,6 +4,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import orb.com.backend.exceptions.models.EntityNotFoundException;
 import orb.com.backend.exceptions.models.StandardError;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,19 @@ import java.util.Map;
 
 @ControllerAdvice
 public class ExceptionHandler {
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<StandardError> EntityNotFoundExceptionHandler(HttpServletRequest req, EntityNotFoundException entityNotFoundException) {
+
+        StandardError standardError = StandardError.builder()
+                .localDateTime(LocalDateTime.now().toString())
+                .status(404)
+                .error(entityNotFoundException.getMessage())
+                .path(req.getRequestURI())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(standardError);
+    }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
     public ResponseEntity<StandardError> genericExceptionHandler(HttpServletRequest req, Exception ex) {

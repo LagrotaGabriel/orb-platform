@@ -33,3 +33,5 @@ springdoc:
     path: /documentacao-api
     operationsSorter: method
     tagsSorter: alpha
+jwt:
+  secret: ${JWT_SECRET}

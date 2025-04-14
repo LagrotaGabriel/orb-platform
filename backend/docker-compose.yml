@@ -1,0 +1,46 @@
+services:
+
+  # Microsserviços
+  orb-service:
+    container_name: orb-srv
+    image: gabriellagrota/orb-service:latest
+    restart: always
+    build: .
+    environment:
+      TZ: America/Sao_Paulo
+      DB_URL: ${DB_URL}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+    ports:
+      - "8080:8080"
+    command: mvn spring-boot:run
+    depends_on:
+      - orb-db
+    networks:
+      - app-network
+
+  # Bancos de Dados PostgreSQL
+
+  orb-db:
+    image: postgres:15
+    container_name: orb-db
+    restart: always
+    environment:
+      POSTGRES_DB: orb
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  pgdata:
+    driver: local

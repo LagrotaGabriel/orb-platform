@@ -10,7 +10,7 @@
     </parent>
     <groupId>orb.com</groupId>
     <artifactId>backend</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${application.version}</version>
     <name>backend</name>
     <description>Centralized monolithic application for handling IoT communication, user management, and data processing
         of the Orb smart hydration system
@@ -35,6 +35,8 @@
         <java.version>17</java.version>
         <postgresql.version>42.7.2</postgresql.version>
         <springdoc-openapi.version>2.3.0</springdoc-openapi.version>
+        <jsonwebtoken.version>0.12.3</jsonwebtoken.version>
+        <application.version>1.0.0</application.version>
     </properties>
 
     <dependencies>
@@ -92,6 +94,17 @@
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${springdoc-openapi.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jsonwebtoken.version}</version>
         </dependency>
     </dependencies>
 

@@ -21,7 +21,7 @@ import java.util.Map;
 public class ExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler(DuplicateResourceException.class)
-    public ResponseEntity<StandardError> DuplicateResourceExceptionHandler(HttpServletRequest req, DuplicateResourceException duplicateResourceException) {
+    public ResponseEntity<StandardError> duplicateResourceExceptionHandler(HttpServletRequest req, DuplicateResourceException duplicateResourceException) {
 
         StandardError standardError = StandardError.builder()
                 .localDateTime(LocalDateTime.now().toString())
@@ -34,7 +34,7 @@ public class ExceptionHandler {
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<StandardError> EntityNotFoundExceptionHandler(HttpServletRequest req, EntityNotFoundException entityNotFoundException) {
+    public ResponseEntity<StandardError> entityNotFoundExceptionHandler(HttpServletRequest req, EntityNotFoundException entityNotFoundException) {
 
         StandardError standardError = StandardError.builder()
                 .localDateTime(LocalDateTime.now().toString())

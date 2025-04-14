@@ -40,7 +40,7 @@ public class CreateCustomerServiceImpl implements CreateCustomerService {
             return CustomerResponse.createFromEntity(savedCustomer);
         } catch (Exception exception) {
             log.error("An unexpected error occurred while creating a new customer: {}", exception.getMessage());
-            throw new RuntimeException("An unexpected error occurred while creating a new customer");
+            throw new RuntimeException("An unexpected error occurred while creating a new customer", exception);
         }
     }
 }

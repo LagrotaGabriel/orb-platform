@@ -16,7 +16,7 @@ public record CreateCustomerRequest(
 
         @JsonProperty("email")
         @NotEmpty(message = "Customer email must be provided")
-        @Parameter(name = "Customer mail", example = "customermail@mail.com", required = true)
+        @Parameter(name = "Customer email", example = "customermail@mail.com", required = true)
         @Size(max = 60, message = "Customer mail must have a maximum of {max} characters")
         @Email(message = "Invalid customer mail. Use a valid mail pattern")
         String email,

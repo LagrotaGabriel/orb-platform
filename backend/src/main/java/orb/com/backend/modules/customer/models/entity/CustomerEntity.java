@@ -5,8 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import orb.com.backend.modules.cup.models.entity.CupEntity;
+import orb.com.backend.modules.customer.actions.create.dto.CreateCustomerRequest;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -51,13 +53,9 @@ public class CustomerEntity {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CupEntity> cups = new ArrayList<>();
 
-    public CustomerEntity(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
-
-    public void addCup(CupEntity cup) {
-        this.cups.add(cup);
+    public CustomerEntity(CreateCustomerRequest createCustomerRequest) {
+        this.name = createCustomerRequest.name();
+        this.email = createCustomerRequest.email();
+        this.password = new BCryptPasswordEncoder().encode(createCustomerRequest.password());
     }
 }

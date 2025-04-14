@@ -6,6 +6,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import orb.com.backend.exceptions.models.EntityNotFoundException;
 import orb.com.backend.exceptions.models.StandardError;
+import orb.com.backend.exceptions.models.DuplicateResourceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,6 +19,19 @@ import java.util.Map;
 
 @ControllerAdvice
 public class ExceptionHandler {
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(DuplicateResourceException.class)
+    public ResponseEntity<StandardError> DuplicateResourceExceptionnHandler(HttpServletRequest req, DuplicateResourceException duplicateResourceException) {
+
+        StandardError standardError = StandardError.builder()
+                .localDateTime(LocalDateTime.now().toString())
+                .status(409)
+                .error(duplicateResourceException.getMessage())
+                .path(req.getRequestURI())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(standardError);
+    }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<StandardError> EntityNotFoundExceptionHandler(HttpServletRequest req, EntityNotFoundException entityNotFoundException) {

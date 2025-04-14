@@ -44,7 +44,7 @@ public class CreateCustomerServiceImpl implements CreateCustomerService {
             throw new InternalError("An error occurred while creating a new customer");
         } catch (Exception exception) {
             log.error("An unexpected error occurred while creating a new customer: {}", exception.getMessage());
-            throw new InternalError("An unexpected error occurred while creating a new customer");
+            throw new RuntimeException("An unexpected error occurred while creating a new customer");
         }
     }
 }

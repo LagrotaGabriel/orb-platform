@@ -51,13 +51,9 @@ public class CustomerEntity {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CupEntity> cups = new ArrayList<>();
 
-    public CustomerEntity(String name, String email, String password) {
+    public CustomerEntity(String name, String email, String encodedPassword) {
         this.name = name;
         this.email = email;
-        this.password = password;
-    }
-
-    public void addCup(CupEntity cup) {
-        this.cups.add(cup);
+        this.password = encodedPassword;
     }
 }

@@ -21,7 +21,7 @@ import java.util.Map;
 public class ExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler(DuplicateResourceException.class)
-    public ResponseEntity<StandardError> DuplicateResourceExceptionnHandler(HttpServletRequest req, DuplicateResourceException duplicateResourceException) {
+    public ResponseEntity<StandardError> DuplicateResourceExceptionHandler(HttpServletRequest req, DuplicateResourceException duplicateResourceException) {
 
         StandardError standardError = StandardError.builder()
                 .localDateTime(LocalDateTime.now().toString())

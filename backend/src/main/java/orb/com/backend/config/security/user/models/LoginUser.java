@@ -32,7 +32,7 @@ public class LoginUser implements UserDetails {
         this.password = password;
 
         List<String> roles = new ArrayList<>();
-        roles.add("ADMIN");
+        roles.add("CUSTOMER");
 
         this.authorities = roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
     }

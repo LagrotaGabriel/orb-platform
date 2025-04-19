@@ -24,4 +24,4 @@ spring:
       path: /h2
       enabled: true
 jwt:
-  secret: QzQ4MTQzM0I1RkY1M0Y3RkY3QzY4NTM3OUEwQzM0Qzg=
+  secret: 123456

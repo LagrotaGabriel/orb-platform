@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import orb.com.backend.modules.cup.models.enums.CupColorEnum;
 import orb.com.backend.modules.cup.models.enums.CupModelEnum;
 import orb.com.backend.modules.metrics.models.entity.CupMetricsEntity;
@@ -20,6 +21,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@ToString
 @DynamicUpdate
 @NoArgsConstructor
 @Table(name = "tb_orb_cup")

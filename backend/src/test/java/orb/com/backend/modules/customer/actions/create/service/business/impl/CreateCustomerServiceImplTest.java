@@ -99,6 +99,4 @@ class CreateCustomerServiceImplTest {
                 times(1)).save(any(CustomerEntity.class)
         );
     }
-
-
 }

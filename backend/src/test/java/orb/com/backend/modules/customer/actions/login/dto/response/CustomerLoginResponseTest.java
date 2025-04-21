@@ -13,7 +13,7 @@ class CustomerLoginResponseTest {
         CustomerLoginResponse customerLoginResponse = CustomerLoginResponseMock.builder().build();
 
         Assertions.assertEquals(
-                "CustomerLoginResponse[loginDateTime=2025-02-05T11:53, sessionEndDateTime=2125-02-05T11:53, jwtToken=Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnYWJyaWVsbGFncm90YTIzNEBnbWFpbC5jb20iLCJpYXQiOjE3NDQ2NDAzOTAsImV4cCI6MTc0NDY3NjM5MH0.l-iDI1FevZ_05u9837qmyzk8vLRaYsQhzR4hniZi0dQ]",
+                "CustomerLoginResponse[loginDateTime=2025-02-05T11:53, sessionEndDateTime=2125-02-05T11:53, jwtToken=123456]",
                 customerLoginResponse.toString()
         );
     }

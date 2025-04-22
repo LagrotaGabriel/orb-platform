@@ -68,6 +68,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: 🧾 Debug backend and target directory contents
+        run: |
+           echo "Contents of backend directory:"
+           ls -la ./backend
+           echo "Contents of backend/target directory:"
+           ls -la ./backend/target || echo "ERROR: Target directory does not exist!"
+
+      - name: 📦 Upload backend artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: backend-target
+          path: ./backend/target/
+
       - name: 🛑 Fail if JAR file is missing
         run: |
            JAR_FILE=$(find ./backend/target -name "*.jar" -type f)

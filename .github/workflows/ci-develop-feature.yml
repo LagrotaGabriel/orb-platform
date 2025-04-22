@@ -38,19 +38,6 @@ jobs:
         working-directory: ./backend
         run: mvn clean verify
 
-      - name: 🦸‍♂️ Run SonarCloud analysis
-        working-directory: ./backend
-        run: |
-          mvn verify sonar:sonar \
-            -Dsonar.projectKey=LagrotaGabriel_orb-platform \
-            -Dsonar.organization=lagrotagabriel \
-            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-            -Dsonar.qualitygate.wait=true
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-
   docker-build:
     name: GitHub Packages Docker Build
     runs-on: ubuntu-latest

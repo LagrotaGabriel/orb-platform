@@ -29,11 +29,11 @@ jobs:
         working-directory: ./backend
         run: mvn clean install -DskipTests
 
-      - name: 📦 Upload target directory
-        uses: actions/upload-artifact@v3
-        with:
-          name: target-artifact
-          path: ./backend/target
+      - name: 🧐 Debug target directory contents
+        run: ls -la ./backend
+
+      - name: 🧐 Debug target directory contents
+        run: ls -la ./backend/target
 
       - name: 🔍 Run tests with JaCoCo coverage
         working-directory: ./backend

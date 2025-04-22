@@ -12,10 +12,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: 🛠️ Code checkout
+        working-directory: ./backend
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false   
+
+      - name: 🔍 Debug Git Checkout
+        run: |
+          git remote -v
+          git status
+          ls -la     
 
       - name: ☕ Setup JDK 17
+        working-directory: ./backend
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"

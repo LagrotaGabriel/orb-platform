@@ -55,6 +55,17 @@ jobs:
       - name: 🛠️ Code checkout
         uses: actions/checkout@v4
 
+      - name: ☕ Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+          cache: maven
+
+      - name: ⚙️ Maven build
+        working-directory: ./backend
+        run: mvn clean install -DskipTests
+
       - name: 🧾 Verificar estrutura do repositório
         run: |
           echo "Estrutura do repositório:"

@@ -70,10 +70,13 @@ jobs:
 
       - name: 🛑 Fail if JAR file is missing
         run: |
-          if [ ! -f "./backend/target/*.jar" ]; then
-            echo "ERROR: JAR file is missing in target directory."
-            exit 1
-          fi
+           JAR_FILE=$(find ./backend/target -name "*.jar" -type f)
+           if [ -z "$JAR_FILE" ]; then
+             echo "ERROR: JAR file is missing in target directory."
+             exit 1
+           else
+             echo "JAR file found: $JAR_FILE"
+           fi
 
       - name: 🏗️ Build Docker Image
         run: |

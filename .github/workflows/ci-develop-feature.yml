@@ -15,14 +15,7 @@ jobs:
       - name: 🛠️ Code checkout
         uses: actions/checkout@v4
 
-      - name: 🔍 Debug Git Checkout
-        run: |
-          git remote -v
-          git status
-          ls -la
-
       - name: ☕ Setup JDK 17
-        working-directory: ./backend
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"

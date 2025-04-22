@@ -69,11 +69,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 📥 Download target artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: target-artifact
-
       - name: 🏗️ Build Docker Image
         run: |
           IMAGE_NAME="ghcr.io/${{ github.repository }}"

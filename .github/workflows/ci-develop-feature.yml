@@ -7,7 +7,7 @@ on:
       - "feature/*"
     paths:
       - "backend/**"
-      - ".github/workflows/**" # sempre roda se o workflow for alterado
+      - ".github/workflows/**"
 
 jobs:
   build:
@@ -28,6 +28,12 @@ jobs:
       - name: ⚙️ Maven build
         working-directory: ./backend
         run: mvn clean install -DskipTests
+
+      - name: 📦 Upload target directory
+        uses: actions/upload-artifact@v3
+        with:
+          name: target-artifact
+          path: ./backend/target
 
       - name: 🔍 Run tests with JaCoCo coverage
         working-directory: ./backend
@@ -62,6 +68,11 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📥 Download target artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: target-artifact
 
       - name: 🏗️ Build Docker Image
         run: |

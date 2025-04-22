@@ -53,8 +53,8 @@ jobs:
 
       - name: Build Docker Image to GitHub Packages
         run: |
-          docker build -t ghcr.io/${{ github.repository }}/myapp:${GITHUB_SHA} .
+          docker build -t ghcr.io/${{ github.repository | toLowerCase() }}/myapp:${GITHUB_SHA} .
 
       - name: Push Docker Image to GitHub Packages
         run: |
-          docker push ghcr.io/${{ github.repository }}/myapp:${GITHUB_SHA}
+          docker push ghcr.io/${{ github.repository | toLowerCase() }}/myapp:${GITHUB_SHA}

@@ -12,9 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: 🛠️ Code checkout
-        working-directory: ./backend
         uses: actions/checkout@v4
         with:
           fetch-depth: 0

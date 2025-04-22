@@ -30,10 +30,9 @@ jobs:
         run: mvn clean install -DskipTests
 
       - name: 🧐 Debug target directory contents
-        run: ls -la ./backend
-
-      - name: 🧐 Debug target directory contents
-        run: ls -la ./backend/target
+        run: |
+          ls -la ./backend
+          ls -la ./backend/target
 
       - name: 🔍 Run tests with JaCoCo coverage
         working-directory: ./backend
@@ -68,6 +67,13 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🛑 Fail if JAR file is missing
+        run: |
+          if [ ! -f "./backend/target/*.jar" ]; then
+            echo "ERROR: JAR file is missing in target directory."
+            exit 1
+          fi
 
       - name: 🏗️ Build Docker Image
         run: |

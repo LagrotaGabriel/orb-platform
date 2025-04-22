@@ -39,9 +39,15 @@ jobs:
         working-directory: ./backend
         run: mvn jacoco:check
 
-      - name: 🦸‍♂️ Run SonarQube report
+      - name: 🦸‍♂️ Run SonarCloud analysis
         working-directory: ./backend
-        run: mvn sonar:sonar -Dsonar.qualitygate.wait=true
+        run: |
+          mvn verify sonar:sonar \
+            -Dsonar.projectKey=LagrotaGabriel_orb-platform \
+            -Dsonar.organization=lagrotagabriel \
+            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.qualitygate.wait=true
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}

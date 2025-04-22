@@ -1,14 +1,17 @@
-name: CI - Build, Test, Quality, Docker Build
+name: CI - Build, Test, Quality, Docker Build (Monorepo Aware)
 
 on:
   push:
     branches:
       - develop
       - "feature/*"
+    paths:
+      - "backend/**"
+      - ".github/workflows/**" # sempre roda se o workflow for alterado
 
 jobs:
   build:
-    name: Build & Test
+    name: 🧪 Build & Test Backend
     runs-on: ubuntu-latest
 
     steps:
@@ -39,31 +42,34 @@ jobs:
         run: mvn clean verify
 
   docker-build:
-    name: GitHub Packages Docker Build
+    name: 🐳 Docker Build & Push
     runs-on: ubuntu-latest
     needs: build
 
     steps:
-      - name: 🛠️ Verificar estrutura do repositório
+      - name: 🛠️ Code checkout
+        uses: actions/checkout@v4
+
+      - name: 🧾 Verificar estrutura do repositório
         run: |
           echo "Estrutura do repositório:"
           ls -la
           ls -la ./backend
 
-      - name: GitHub Packages Docker Login
+      - name: 🔐 Login to GitHub Packages
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Docker Image to GitHub Packages
+      - name: 🏗️ Build Docker Image
         run: |
           IMAGE_NAME="ghcr.io/${{ github.repository }}"
           IMAGE_NAME_LOWER=$(echo "$IMAGE_NAME" | tr '[:upper:]' '[:lower:]')
           docker build -f ./backend/Dockerfile -t $IMAGE_NAME_LOWER/myapp:${GITHUB_SHA} ./backend
 
-      - name: Push Docker Image to GitHub Packages
+      - name: 📦 Push Docker Image
         run: |
           IMAGE_NAME="ghcr.io/${{ github.repository }}"
           IMAGE_NAME_LOWER=$(echo "$IMAGE_NAME" | tr '[:upper:]' '[:lower:]')

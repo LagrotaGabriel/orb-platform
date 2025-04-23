@@ -21,8 +21,6 @@ public class CreateCustomerController implements CreateCustomerSwagger {
 
     @Override
     public ResponseEntity<CustomerResponse> createNewCustomer(@Valid @RequestBody CreateCustomerRequest createCustomerRequest) {
-
-        log.info("Endpoint responsible for creating a new customer accessed");
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 createCustomerService.create(
                         createCustomerRequest

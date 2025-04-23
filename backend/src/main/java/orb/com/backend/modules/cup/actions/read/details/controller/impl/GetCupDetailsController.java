@@ -20,8 +20,6 @@ public class GetCupDetailsController implements GetCupDetailsSwagger {
 
     @Override
     public ResponseEntity<CupResponse> getCupDetails(UUID id) {
-
-        log.info("Endpoint responsible for retrieving cup details accessed");
         return ResponseEntity.status(HttpStatus.OK).body(
                 getCupDetailsService.getCupDetails(
                         id

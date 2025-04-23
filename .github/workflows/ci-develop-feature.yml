@@ -1,4 +1,4 @@
-name: CI - Build, Test, Quality, Docker Build (Monorepo Aware)
+name: CI • Backend • Build | Test | Coverage | Docker
 
 on:
   push:
@@ -79,12 +79,16 @@ jobs:
 
       - name: 🏗️ Build Docker Image
         run: |
+          ACTOR_LOWER=$(echo "$GITHUB_ACTOR" | tr '[:upper:]' '[:lower:]')
           IMAGE_NAME="${COMPONENT}-${CONTEXT}"
-          FULL_IMAGE_NAME="ghcr.io/${GITHUB_ACTOR}/${IMAGE_NAME}:${ENV}-${VERSION}"
+          FULL_IMAGE_NAME="ghcr.io/${ACTOR_LOWER}/${IMAGE_NAME}:${ENV}-${VERSION}"
+          echo "Building image: $FULL_IMAGE_NAME"
           docker build -f ./backend/Dockerfile -t $FULL_IMAGE_NAME ./backend
 
       - name: 📦 Push Docker Image
         run: |
+          ACTOR_LOWER=$(echo "$GITHUB_ACTOR" | tr '[:upper:]' '[:lower:]')
           IMAGE_NAME="${COMPONENT}-${CONTEXT}"
-          FULL_IMAGE_NAME="ghcr.io/${GITHUB_ACTOR}/${IMAGE_NAME}:${ENV}-${VERSION}"
+          FULL_IMAGE_NAME="ghcr.io/${ACTOR_LOWER}/${IMAGE_NAME}:${ENV}-${VERSION}"
+          echo "Pushing image: $FULL_IMAGE_NAME"
           docker push $FULL_IMAGE_NAME

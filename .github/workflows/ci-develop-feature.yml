@@ -80,11 +80,11 @@ jobs:
       - name: 🏗️ Build Docker Image
         run: |
           IMAGE_NAME="${COMPONENT}-${CONTEXT}"
-          FULL_IMAGE_NAME="ghcr.io/orb-platform/${IMAGE_NAME}:${ENV}-${VERSION}"
+          FULL_IMAGE_NAME="ghcr.io/${GITHUB_ACTOR}/${IMAGE_NAME}:${ENV}-${VERSION}"
           docker build -f ./backend/Dockerfile -t $FULL_IMAGE_NAME ./backend
 
       - name: 📦 Push Docker Image
         run: |
           IMAGE_NAME="${COMPONENT}-${CONTEXT}"
-          FULL_IMAGE_NAME="ghcr.io/orb-platform/${IMAGE_NAME}:${ENV}-${VERSION}"
+          FULL_IMAGE_NAME="ghcr.io/${GITHUB_ACTOR}/${IMAGE_NAME}:${ENV}-${VERSION}"
           docker push $FULL_IMAGE_NAME

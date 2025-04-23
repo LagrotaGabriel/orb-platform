@@ -49,6 +49,14 @@ jobs:
       contents: read
       packages: write
 
+    env:
+      COMPONENT: myapp
+      CONTEXT: backend
+      ENV: dev
+      VERSION: ${{ github.sha }}
+      IMAGE_NAME: ${{ format('{0}-{1}', env.COMPONENT, env.CONTEXT) }}
+      FULL_IMAGE_NAME: ghcr.io/orb-platform/${{ format('{0}-{1}', env.COMPONENT, env.CONTEXT) }}:${{ env.ENV }}-${{ env.VERSION }}
+
     steps:
       - name: 🛠️ Code checkout
         uses: actions/checkout@v4
@@ -71,14 +79,22 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # - name: 🏗️ Build Docker Image
+      #   run: |
+      #     IMAGE_NAME="ghcr.io/${{ github.repository }}"
+      #     IMAGE_NAME_LOWER=$(echo "$IMAGE_NAME" | tr '[:upper:]' '[:lower:]')
+      #     docker build -f ./backend/Dockerfile -t $IMAGE_NAME_LOWER/myapp:${GITHUB_SHA} ./backend
+
+      # - name: 📦 Push Docker Image
+      #   run: |
+      #     IMAGE_NAME="ghcr.io/${{ github.repository }}"
+      #     IMAGE_NAME_LOWER=$(echo "$IMAGE_NAME" | tr '[:upper:]' '[:lower:]')
+      #     docker push $IMAGE_NAME_LOWER/myapp:${GITHUB_SHA}
+
       - name: 🏗️ Build Docker Image
         run: |
-          IMAGE_NAME="ghcr.io/${{ github.repository }}"
-          IMAGE_NAME_LOWER=$(echo "$IMAGE_NAME" | tr '[:upper:]' '[:lower:]')
-          docker build -f ./backend/Dockerfile -t $IMAGE_NAME_LOWER/myapp:${GITHUB_SHA} ./backend
+          docker build -f ./backend/Dockerfile -t ${{ env.FULL_IMAGE_NAME }} ./backend
 
       - name: 📦 Push Docker Image
         run: |
-          IMAGE_NAME="ghcr.io/${{ github.repository }}"
-          IMAGE_NAME_LOWER=$(echo "$IMAGE_NAME" | tr '[:upper:]' '[:lower:]')
-          docker push $IMAGE_NAME_LOWER/myapp:${GITHUB_SHA}
+          docker push ${{ env.FULL_IMAGE_NAME }}

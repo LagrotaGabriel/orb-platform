@@ -52,7 +52,7 @@ public class LoggingAspect {
 
             return result;
         } catch (Throwable e) {
-            log.error("❌ Exception in {} | Message: {}", methodName, e.getMessage());
+            log.error("❌ Exception in {} | Message: {}", methodName, e.getMessage(), e);
             throw e;
         }
     }

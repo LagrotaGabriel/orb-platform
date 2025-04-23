@@ -1,7 +1,7 @@
 package orb.com.backend.modules.customer.actions.create.service.business.impl;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import orb.com.backend.annotations.LogExecution;
 import orb.com.backend.modules.customer.actions.create.dto.CreateCustomerRequest;
 import orb.com.backend.modules.customer.actions.create.service.business.CreateCustomerService;
 import orb.com.backend.modules.customer.actions.create.service.validation.CreateCustomerValidationService;
@@ -11,8 +11,8 @@ import orb.com.backend.modules.customer.repository.CustomerRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Slf4j
 @Service
+@LogExecution
 @RequiredArgsConstructor
 public class CreateCustomerServiceImpl implements CreateCustomerService {
 
@@ -36,10 +36,8 @@ public class CreateCustomerServiceImpl implements CreateCustomerService {
 
         try {
             CustomerEntity savedCustomer = customerRepository.save(customerEntity);
-            log.info("Customer created successfully. Id: {}", savedCustomer.getId());
             return CustomerResponse.createFromEntity(savedCustomer);
         } catch (Exception exception) {
-            log.error("An unexpected error occurred while creating a new customer: {}", exception.getMessage());
             throw new RuntimeException("An unexpected error occurred while creating a new customer", exception);
         }
     }

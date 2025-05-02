@@ -35,3 +35,32 @@ springdoc:
     tagsSorter: alpha
 jwt:
   secret: ${JWT_SECRET}
+
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      base-path: /
+      exposure:
+        include: health
+  endpoint:
+    health:
+      enabled: true
+      group:
+        liveness:
+          include: livenessState, ping
+        readiness:
+          include: readinessState, ping
+      show-details: "NEVER"
+      probes:
+        enabled: true
+  health:
+    ping:
+      enabled: true
+    diskspace:
+      enabled: false
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true

@@ -36,6 +36,7 @@
         <postgresql.version>42.7.2</postgresql.version>
         <springdoc-openapi.version>2.3.0</springdoc-openapi.version>
         <jsonwebtoken.version>0.12.3</jsonwebtoken.version>
+        <spring-boot-starter-actuator.version>3.4.0</spring-boot-starter-actuator.version>
     </properties>
 
     <dependencies>
@@ -115,6 +116,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>${spring-boot-starter-actuator.version}</version>
         </dependency>
     </dependencies>
 
